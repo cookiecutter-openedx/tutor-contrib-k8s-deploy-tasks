@@ -11,9 +11,7 @@
   --update cms-sso cms
 
 # Discovery service.
-# note: on each of these we'll test one config variable to see if its set. if it is then we'll assume
-# all are set and we should therefore proceed to reconfigure.
-{% if DISCOVERY_OAUTH2_KEY %}
+{% if DISCOVERY_HOST is defined and DISCOVERY_OAUTH2_KEY is defined and DISCOVERY_OAUTH2_SECRET is defined %}
 ./manage.py lms create_dot_application \
     --grant-type client-credentials \
     --redirect-uris "https://{{ DISCOVERY_HOST }}/complete/edx-oauth2/" \
@@ -38,7 +36,7 @@
 {% endif %}
 
 # Ecommerce application
-{% if ECOMMERCE_OAUTH2_KEY %}
+{% if ECOMMERCE_HOST is defined and ECOMMERCE_OAUTH2_KEY is defined and ECOMMERCE_OAUTH2_SECRET is defined %}
 ./manage.py lms create_dot_application \
   --grant-type client-credentials \
   --redirect-uris "https://{{ ECOMMERCE_HOST }}/complete/edx-oauth2/" \
@@ -63,7 +61,7 @@
 {% endif %}
 
 # Credentials service
-{% if CREDENTIALS_OAUTH2_KEY %}
+{% if CREDENTIALS_HOST is defined and CREDENTIALS_OAUTH2_KEY is defined and CREDENTIALS_OAUTH2_SECRET is defined %}
 ./manage.py lms create_dot_application \
   --grant-type client-credentials \
   --redirect-uris "https://{{ CREDENTIALS_HOST }}/complete/edx-oauth2/" \
