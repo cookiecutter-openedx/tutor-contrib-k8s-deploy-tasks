@@ -10,7 +10,10 @@
   --skip-authorization \
   --update cms-sso cms
 
-# Discovery service
+# Discovery service.
+# note: on each of these we'll test one config variable to see if its set. if it is then we'll assume
+# all are set and we should therefore proceed to reconfigure.
+{% if DISCOVERY_OAUTH2_KEY %}
 ./manage.py lms create_dot_application \
     --grant-type client-credentials \
     --redirect-uris "https://{{ DISCOVERY_HOST }}/complete/edx-oauth2/" \
@@ -32,8 +35,10 @@
     --update \
     discovery-sso \
     discovery
+{% endif %}
 
 # Ecommerce application
+{% if ECOMMERCE_OAUTH2_KEY %}
 ./manage.py lms create_dot_application \
   --grant-type client-credentials \
   --redirect-uris "https://{{ ECOMMERCE_HOST }}/complete/edx-oauth2/" \
@@ -55,8 +60,10 @@
   --update \
   ecommerce-sso \
   ecommerce
+{% endif %}
 
 # Credentials service
+{% if CREDENTIALS_OAUTH2_KEY %}
 ./manage.py lms create_dot_application \
   --grant-type client-credentials \
   --redirect-uris "https://{{ CREDENTIALS_HOST }}/complete/edx-oauth2/" \
@@ -78,3 +85,4 @@
   --update \
   credentials-sso \
   credentials
+{% endif %}
