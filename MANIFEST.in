@@ -1,0 +1,2 @@
+recursive-include tutork8s_deploy_tasks/patches *
+recursive-include tutork8s_deploy_tasks/templates *

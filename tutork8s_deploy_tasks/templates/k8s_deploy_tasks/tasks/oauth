@@ -1,0 +1,80 @@
+# Use https protocol for redirect URIs on each application in the suite
+
+# Course Management Studio
+./manage.py lms create_dot_application \
+  --grant-type authorization-code \
+  --redirect-uris "https://{{ CMS_HOST }}/complete/edx-oauth2/" \
+  --client-id {{ CMS_OAUTH2_KEY_SSO }} \
+  --client-secret {{ CMS_OAUTH2_SECRET }} \
+  --scopes user_id \
+  --skip-authorization \
+  --update cms-sso cms
+
+# Discovery service
+./manage.py lms create_dot_application \
+    --grant-type client-credentials \
+    --redirect-uris "https://{{ DISCOVERY_HOST }}/complete/edx-oauth2/" \
+    --client-id {{ DISCOVERY_OAUTH2_KEY }} \
+    --client-secret {{ DISCOVERY_OAUTH2_SECRET }} \
+    --scopes user_id \
+    --skip-authorization \
+    --update \
+    discovery \
+    discovery
+
+./manage.py lms create_dot_application \
+    --grant-type authorization-code \
+    --redirect-uris "https://{{ DISCOVERY_HOST }}/complete/edx-oauth2/" \
+    --client-id {{ DISCOVERY_OAUTH2_KEY_SSO }} \
+    --client-secret {{ DISCOVERY_OAUTH2_SECRET_SSO }} \
+    --scopes user_id \
+    --skip-authorization \
+    --update \
+    discovery-sso \
+    discovery
+
+# Ecommerce application
+./manage.py lms create_dot_application \
+  --grant-type client-credentials \
+  --redirect-uris "https://{{ ECOMMERCE_HOST }}/complete/edx-oauth2/" \
+  --client-id {{ ECOMMERCE_OAUTH2_KEY }} \
+  --client-secret {{ ECOMMERCE_OAUTH2_SECRET }} \
+  --scopes user_id \
+  --skip-authorization \
+  --update \
+  ecommerce \
+  ecommerce
+
+./manage.py lms create_dot_application \
+  --grant-type authorization-code \
+  --redirect-uris "https://{{ ECOMMERCE_HOST }}/complete/edx-oauth2/" \
+  --client-id {{ ECOMMERCE_OAUTH2_KEY_SSO }} \
+  --client-secret {{ ECOMMERCE_OAUTH2_SECRET_SSO }} \
+  --scopes user_id \
+  --skip-authorization \
+  --update \
+  ecommerce-sso \
+  ecommerce
+
+# Credentials service
+./manage.py lms create_dot_application \
+  --grant-type client-credentials \
+  --redirect-uris "https://{{ CREDENTIALS_HOST }}/complete/edx-oauth2/" \
+  --client-id {{ CREDENTIALS_OAUTH2_KEY }} \
+  --client-secret {{ CREDENTIALS_OAUTH2_SECRET }} \
+  --scopes user_id \
+  --skip-authorization \
+  --update \
+  credentials \
+  credentials
+
+./manage.py lms create_dot_application \
+  --grant-type authorization-code \
+  --redirect-uris "https://{{ CREDENTIALS_HOST }}/complete/edx-oauth2/" \
+  --client-id {{ CREDENTIALS_OAUTH2_KEY_SSO }} \
+  --client-secret {{ CREDENTIALS_OAUTH2_SECRET_SSO }} \
+  --scopes user_id \
+  --skip-authorization \
+  --update \
+  credentials-sso \
+  credentials
