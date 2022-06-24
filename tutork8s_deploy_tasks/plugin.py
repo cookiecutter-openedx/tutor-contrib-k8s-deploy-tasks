@@ -33,6 +33,10 @@ hooks.Filters.COMMANDS_INIT.add_item((
      "lms",
      ("k8s_deploy_tasks", "tasks", "lms", "nutmeg_deploy_tasks"),
  ))
+hooks.Filters.COMMANDS_INIT.add_item((
+     "cms",
+     ("k8s_deploy_tasks", "tasks", "cms", "nutmeg_deploy_tasks"),
+ ))
 
 ################# Docker image management
 # To build an image with `tutor images build myimage`, add a Dockerfile to templates/k8s_deploy_tasks/build/myimage and write:
