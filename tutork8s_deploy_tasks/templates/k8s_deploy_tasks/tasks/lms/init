@@ -78,3 +78,8 @@
   --update \
   credentials-sso \
   credentials
+
+
+# Nutmeg upgrade and deploy tasks
+./manage.py lms backpopulate_user_tours
+./manage.py cms backfill_course_tabs
