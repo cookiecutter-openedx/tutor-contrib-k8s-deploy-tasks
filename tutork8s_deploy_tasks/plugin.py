@@ -25,11 +25,14 @@ config = {
 }
 
 ################# Initialization tasks
-# To run the script from templates/k8s_deploy_tasks/tasks/myservice/init, add:
-# hooks.Filters.COMMANDS_INIT.add_item((
-#     "myservice",
-#     ("k8s_deploy_tasks", "tasks", "myservice", "init"),
-# ))
+hooks.Filters.COMMANDS_INIT.add_item((
+     "lms",
+     ("k8s_deploy_tasks", "tasks", "lms", "fix_oauth_redirect_uris"),
+ ))
+hooks.Filters.COMMANDS_INIT.add_item((
+     "lms",
+     ("k8s_deploy_tasks", "tasks", "lms", "nutmeg_deploy_tasks"),
+ ))
 
 ################# Docker image management
 # To build an image with `tutor images build myimage`, add a Dockerfile to templates/k8s_deploy_tasks/build/myimage and write:
