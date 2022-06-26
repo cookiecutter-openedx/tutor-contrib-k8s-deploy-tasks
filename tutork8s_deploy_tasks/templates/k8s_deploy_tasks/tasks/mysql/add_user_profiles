@@ -1,0 +1,8 @@
+echo "add missing user profiles"
+mysql -u {{ MYSQL_ROOT_USERNAME }} --password="{{ MYSQL_ROOT_PASSWORD }}" --host "{{ MYSQL_HOST }}" --port {{ MYSQL_PORT }} -e "\
+INSERT INTO {{ OPENEDX_MYSQL_DATABASE }}.auth_userprofile (courseware, user_id ) \
+SELECT  'course.xml' as courseware, \
+        u.id as user_id \
+FROM    {{ OPENEDX_MYSQL_DATABASE }}.auth_user u \
+        LEFT JOIN {{ OPENEDX_MYSQL_DATABASE }}.auth_userprofile p ON (u.id = p.user_id) \
+WHERE	(p.id IS NULL)"
