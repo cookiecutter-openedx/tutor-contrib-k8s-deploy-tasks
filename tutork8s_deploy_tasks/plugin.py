@@ -12,6 +12,7 @@ config = {
     # Add here your new settings
     "defaults": {
         "VERSION": __version__,
+        "REDIS_KEY_PREFIX": "",
     },
     # Add here settings that don't have a reasonable default for all users. For
     # instance: passwords, secret keys, etc.
