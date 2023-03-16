@@ -1,10 +1,11 @@
 #------------------------------------------------------------------------------
-# written by:   mcdaniel
-#               https://lawrencemcdaniel.com
+# written by:   DonatoBD
+#               eduNEXT               
 #
 # date:         mar-2023
 #
-# copied from: https://github.com/overhangio/tutor-mfe/blob/master/tutormfe/patches/openedx-lms-production-settings
+# usage:        eduNEXT's scorm proxy solution for resolving storage challenges
+#               when running behind a proxy server
 #------------------------------------------------------------------------------
 # SCORM SETTINGS
 
