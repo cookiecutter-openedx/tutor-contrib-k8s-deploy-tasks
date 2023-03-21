@@ -8,6 +8,7 @@ tutor plugin to manage deployment tasks that are exclusively (or mostly) specifi
 - *Nutmeg upgrade and initializataion tasks* There are a few manage.py tasks that need to run for platforms that are upgrading to Nutmeg or newer from Maple or older. This plugin runs those tasks for you. For more information see `Open edX Nutmeg Release <https://edx.readthedocs.io/projects/open-edx-release-notes/en/latest/nutmeg.html>`_
 - *Missing user profile records*. User accounts created with manage.py lack a corresponding auth_userprofile record, which causes a 500 exception during login for that account. Adds a blank record in cases where a record is missing.
 - *MFE misconfiguration*. tutor-mfe relies on the value of ENABLE_HTTPS when generating the dict MFE_CONFIG, which in the case of k8s deployments will result in the browser blocking content due to "Mixed content". This plugin overrides the results of tutor-mfe openedx-lms-production-settings, replacing protocol produced by logic relying on ENABLE_HTTPS (assumed to result in 'http') with the hard-coded value 'https'.
+- *Xblock storage configuration*. creates a custom storage configuration designed to leverage a custom kubernetes ExternalService and ingress created by Cookiecutter for supporting AWS S3 storage for Xblocks.
 
 Installation
 ------------
