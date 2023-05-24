@@ -67,3 +67,56 @@ MFE_CONFIG = {
     "DISABLE_ENTERPRISE_LOGIN": True,
 {%- endif %}
 }
+
+# -----------------------------------------------------------------------------
+# McDaniel Feb-2023
+# Modified Common cache config to add REDIS_KEY_PREFIX in order to support
+# multiple environments in a single Redis cache instance.
+# -----------------------------------------------------------------------------
+CACHES = {
+    "default": {
+        "KEY_PREFIX": "default{% if REDIS_KEY_PREFIX %}-{{ REDIS_KEY_PREFIX }}{% endif %}",
+        "VERSION": "1",
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://{% if REDIS_USERNAME and REDIS_PASSWORD %}{{ REDIS_USERNAME }}:{{ REDIS_PASSWORD }}{% endif %}@{{ REDIS_HOST }}:{{ REDIS_PORT }}/{{ OPENEDX_CACHE_REDIS_DB }}",
+    },
+    "general": {
+        "KEY_PREFIX": "general{% if REDIS_KEY_PREFIX %}-{{ REDIS_KEY_PREFIX }}{% endif %}",
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://{% if REDIS_USERNAME and REDIS_PASSWORD %}{{ REDIS_USERNAME }}:{{ REDIS_PASSWORD }}{% endif %}@{{ REDIS_HOST }}:{{ REDIS_PORT }}/{{ OPENEDX_CACHE_REDIS_DB }}",
+    },
+    "mongo_metadata_inheritance": {
+        "KEY_PREFIX": "mongo_metadata_inheritance{% if REDIS_KEY_PREFIX %}-{{ REDIS_KEY_PREFIX }}{% endif %}",
+        "TIMEOUT": 300,
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://{% if REDIS_USERNAME and REDIS_PASSWORD %}{{ REDIS_USERNAME }}:{{ REDIS_PASSWORD }}{% endif %}@{{ REDIS_HOST }}:{{ REDIS_PORT }}/{{ OPENEDX_CACHE_REDIS_DB }}",
+    },
+    "configuration": {
+        "KEY_PREFIX": "configuration{% if REDIS_KEY_PREFIX %}-{{ REDIS_KEY_PREFIX }}{% endif %}",
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://{% if REDIS_USERNAME and REDIS_PASSWORD %}{{ REDIS_USERNAME }}:{{ REDIS_PASSWORD }}{% endif %}@{{ REDIS_HOST }}:{{ REDIS_PORT }}/{{ OPENEDX_CACHE_REDIS_DB }}",
+    },
+    "celery": {
+        "KEY_PREFIX": "celery{% if REDIS_KEY_PREFIX %}-{{ REDIS_KEY_PREFIX }}{% endif %}",
+        "TIMEOUT": 7200,
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://{% if REDIS_USERNAME and REDIS_PASSWORD %}{{ REDIS_USERNAME }}:{{ REDIS_PASSWORD }}{% endif %}@{{ REDIS_HOST }}:{{ REDIS_PORT }}/{{ OPENEDX_CACHE_REDIS_DB }}",
+    },
+    "course_structure_cache": {
+        "KEY_PREFIX": "course_structure{% if REDIS_KEY_PREFIX %}-{{ REDIS_KEY_PREFIX }}{% endif %}",
+        "TIMEOUT": 7200,
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://{% if REDIS_USERNAME and REDIS_PASSWORD %}{{ REDIS_USERNAME }}:{{ REDIS_PASSWORD }}{% endif %}@{{ REDIS_HOST }}:{{ REDIS_PORT }}/{{ OPENEDX_CACHE_REDIS_DB }}",
+    },
+}
+
+CACHES["staticfiles"] = {
+    "KEY_PREFIX": "staticfiles_lms{% if REDIS_KEY_PREFIX %}-{{ REDIS_KEY_PREFIX }}{% endif %}",
+    "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    "LOCATION": "staticfiles_lms",
+}
+CACHES["ora2-storage"] = {
+    "KEY_PREFIX": "ora2-storage{% if REDIS_KEY_PREFIX %}-{{ REDIS_KEY_PREFIX }}{% endif %}",
+    "BACKEND": "django_redis.cache.RedisCache",
+    "LOCATION": "redis://{% if REDIS_USERNAME and REDIS_PASSWORD %}{{ REDIS_USERNAME }}:{{ REDIS_PASSWORD }}{% endif %}@{{ REDIS_HOST }}:{{ REDIS_PORT }}/{{ OPENEDX_CACHE_REDIS_DB }}",
+}
