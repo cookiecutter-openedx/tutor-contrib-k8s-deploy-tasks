@@ -56,10 +56,10 @@ MY_INIT_TASKS: list[tuple[str, tuple[str, ...]]] = [
     # For example, to add LMS initialization steps, you could add the script template at:
     # tutork8s_deploy_tasks/templates/tutork8s_deploy_tasks/jobs/init/lms.sh
     # And then add the line:
-    ("lms", ("tutork8s_deploy_tasks", "jobs", "init", "lms" "fix_oauth_redirect_uris")),
-    ("lms", ("tutork8s_deploy_tasks", "jobs", "init", "lms" "nutmeg_deploy_tasks")),
-    ("cms", ("tutork8s_deploy_tasks", "jobs", "init", "cms" "nutmeg_deploy_tasks")),
-    ("mysql", ("tutork8s_deploy_tasks", "jobs", "init", "mysql" "add_user_profiles")),
+    ("lms", ("k8s_deploy_tasks", "jobs", "init", "lms", "fix_oauth_redirect_uris")),
+    ("lms", ("k8s_deploy_tasks", "jobs", "init", "lms", "nutmeg_deploy_tasks")),
+    ("cms", ("k8s_deploy_tasks", "jobs", "init", "cms", "nutmeg_deploy_tasks")),
+    ("mysql", ("k8s_deploy_tasks", "jobs", "init", "mysql", "add_user_profiles")),
 ]
 
 
