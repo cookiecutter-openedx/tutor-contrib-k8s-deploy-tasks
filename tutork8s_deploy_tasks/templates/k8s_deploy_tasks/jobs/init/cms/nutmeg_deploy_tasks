@@ -1,0 +1,3 @@
+# Nutmeg upgrade and deploy tasks
+
+./manage.py cms backfill_course_tabs

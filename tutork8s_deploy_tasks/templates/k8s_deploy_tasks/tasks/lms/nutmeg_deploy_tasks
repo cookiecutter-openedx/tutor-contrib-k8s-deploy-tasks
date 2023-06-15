@@ -1,3 +1,0 @@
-# Nutmeg upgrade and deploy tasks
-
-./manage.py lms backpopulate_user_tours
