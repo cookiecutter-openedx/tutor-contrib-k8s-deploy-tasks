@@ -1,28 +1,40 @@
-.DEFAULT_GOAL := help
-.PHONY: docs
-SRC_DIRS = ./tutork8s_deploy_tasks
-BLACK_OPTS = --exclude templates ${SRC_DIRS}
+# -------------------------------------------------------------------------
+# build a package for PyPi
+# -------------------------------------------------------------------------
+.PHONY: build requirements deps-update deps-init
 
-# Warning: These checks are not necessarily run on every PR.
-test: test-lint test-types test-format  # Run some static checks.
+report:
+	cloc $(git ls-files)
 
-test-format: ## Run code formatting tests
-	black --check --diff $(BLACK_OPTS)
 
-test-lint: ## Run code linting tests
-	pylint --errors-only --enable=unused-import,unused-argument --ignore=templates --ignore=docs/_ext ${SRC_DIRS}
+build:
+	python3 -m pip install --upgrade setuptools wheel twine
+	python3 -m pip install --upgrade build
 
-test-types: ## Run type checks.
-	mypy --exclude=templates --ignore-missing-imports --implicit-reexport --strict ${SRC_DIRS}
+	if [ -d "./build" ]; then sudo rm -r build; fi
+	if [ -d "./dist" ]; then sudo rm -r dist; fi
+	if [ -d "./tutork8s_deploy_tasks.egg-info" ]; then sudo rm -r tutork8s_deploy_tasks.egg-info; fi
 
-format: ## Format code automatically
-	black $(BLACK_OPTS)
+	python3 -m build --sdist ./
+	python3 -m build --wheel ./
 
-isort: ##  Sort imports. This target is not mandatory because the output may be incompatible with black formatting. Provided for convenience purposes.
-	isort --skip=templates ${SRC_DIRS}
+	python3 -m pip install --upgrade twine
+	twine check dist/*
 
-ESCAPE = 
-help: ## Print this help
-	@grep -E '^([a-zA-Z_-]+:.*?## .*|######* .+)$$' Makefile \
-		| sed 's/######* \(.*\)/@               $(ESCAPE)[1;31m\1$(ESCAPE)[0m/g' | tr '@' '\n' \
-		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[33m%-30s\033[0m %s\n", $$1, $$2}'
+
+# -------------------------------------------------------------------------
+# upload to PyPi Test
+# https:// ?????
+# -------------------------------------------------------------------------
+release-test:
+	make build
+	twine upload --verbose --skip-existing --repository testpypi dist/*
+
+
+# -------------------------------------------------------------------------
+# upload to PyPi
+# https://pypi.org/project/django-memberpress-client/
+# -------------------------------------------------------------------------
+release-prod:
+	make build
+	twine upload --verbose --skip-existing dist/*

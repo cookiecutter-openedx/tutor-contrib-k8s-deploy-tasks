@@ -1,0 +1,63 @@
+[tool.black]
+line-length = 120
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta:__legacy__"
+
+#------------------------------------------------------------------------------
+# PyPi meta data
+#------------------------------------------------------------------------------
+[project]
+name = "tutor-contrib-k8s-deploy-tasks"
+version = "15.0.0"
+authors = [
+  { name="Lawrence McDaniel", email="lpm0073@gmail.com" }
+]
+description = "A Tutor plugin to manage deployment tasks that are exclusively (or mostly) specific to Kubernetes deployments"
+readme = "README.rst"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+]
+keywords = ["Python", "Open edX"]
+
+[project.urls]
+Homepage = "https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks"
+"Bug Tracker" = "https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/issues"
+Repository = "https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks"
+
+#------------------------------------------------------------------------------
+# see: https://setuptools.pypa.io/en/latest/userguide/dependency_management.html
+#------------------------------------------------------------------------------
+[project.optional-dependencies]
+local = [
+    "pre-commit",
+    "black",
+    "flake8",
+    "ipython"
+]
+
+#------------------------------------------------------------------------------
+# see: https://setuptools.pypa.io/en/latest/userguide/entry_point.html
+#------------------------------------------------------------------------------
+[project.entry-points."tutor.plugin.v1"]
+k8s_deploy_tasks = "tutork8s_deploy_tasks.plugin"
