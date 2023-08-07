@@ -24,7 +24,7 @@ build-backend = "setuptools.build_meta:__legacy__"
 #------------------------------------------------------------------------------
 [project]
 name = "tutor-contrib-k8s-deploy-tasks"
-version = "15.0.0"
+version = "15.0.1"
 authors = [
   { name="Lawrence McDaniel", email="lpm0073@gmail.com" }
 ]
