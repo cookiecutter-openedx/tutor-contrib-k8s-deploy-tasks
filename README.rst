@@ -15,7 +15,7 @@ Installation
 
 ::
 
-    pip install git+https://github.com/myusername/tutor-contrib-k8s-deploy-tasks
+    pip install tutor-contrib-k8s-deploy-tasks
 
 Usage
 -----

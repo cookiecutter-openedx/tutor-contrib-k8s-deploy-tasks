@@ -1,6 +1,6 @@
 import io
 import os
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -35,7 +35,7 @@ setup(
     description="A Tutor plugin to manage deployment tasks that are exclusively (or mostly) specific to Kubernetes deployments",
     long_description=load_readme(),
     long_description_content_type="text/x-rst",
-    packages=find_packages(exclude=["tests*"]),
+    packages=find_namespace_packages(exclude=["tests*"]),
     include_package_data=True,
     python_requires=">=3.5",
     install_requires=["tutor>=15.0.0"],
