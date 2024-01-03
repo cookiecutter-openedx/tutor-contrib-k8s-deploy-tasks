@@ -1,3 +1,10 @@
+## [17.0.1](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/compare/v17.0.0...v17.0.1) (2024-01-03)
+
+
+### Bug Fixes
+
+* refactor MFE settings for Palm ([0923d14](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/commit/0923d148493c371446dcce09ef7945e9e12365ca))
+
 # CHANGE LOG
 
 All notable changes to this project will be documented in this file.
