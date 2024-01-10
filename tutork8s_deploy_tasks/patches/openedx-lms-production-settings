@@ -77,9 +77,9 @@ COMMUNICATIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/communications"
 MFE_CONFIG["SCHEDULE_EMAIL_SECTION"] = True
 {% endif %}
 
-LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
-CORS_ORIGIN_WHITELIST.append("https://{{ MFE_HOST }}")
-CSRF_TRUSTED_ORIGINS.append("{{ MFE_HOST }}")
+# CORS and CSRF settings for CDN
+CORS_ORIGIN_WHITELIST.append("https://cdn.{{ LMS_HOST }}")
+CSRF_TRUSTED_ORIGINS.append("cdn.{{ LMS_HOST }}")
 
 {{ patch("mfe-lms-common-settings") }}
 {{ patch("mfe-lms-production-settings") }}
