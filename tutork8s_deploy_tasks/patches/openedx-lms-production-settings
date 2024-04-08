@@ -3,50 +3,11 @@
 #               https://lawrencemcdaniel.com
 #
 # date:         jan-2023
+#               apr-2024
 #
-# copied from: https://github.com/overhangio/tutor-mfe/blob/master/tutormfe/patches/openedx-lms-production-settings
+# usage:        hard-code protocols to https
+# copied from:  https://github.com/overhangio/tutor-mfe/blob/master/tutormfe/patches/openedx-lms-production-settings
 #------------------------------------------------------------------------------
-{% if MFE_ACCOUNT_MFE_APP %}
-ACCOUNT_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/{{ MFE_ACCOUNT_MFE_APP["name"] }}"
-{% endif %}
-{% if MFE_GRADEBOOK_MFE_APP %}
-WRITABLE_GRADEBOOK_URL = "https://{{ MFE_HOST }}/{{ MFE_GRADEBOOK_MFE_APP["name"] }}"
-{% endif %}
-{% if MFE_LEARNING_MFE_APP %}
-LEARNING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/{{ MFE_LEARNING_MFE_APP["name"] }}"
-{% endif %}
-{% if MFE_PROFILE_MFE_APP %}
-PROFILE_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/{{ MFE_PROFILE_MFE_APP["name"] }}/u/"
-{% endif %}
-{% if MFE_DISCUSSIONS_MFE_APP %}
-DISCUSSIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/{{ MFE_DISCUSSIONS_MFE_APP["name"] }}"
-DISCUSSIONS_MFE_FEEDBACK_URL = None
-{% endif %}
-
-{% if MFE_AUTHN_MFE_APP %}
-AUTHN_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/{{ MFE_AUTHN_MFE_APP["name"] }}"
-AUTHN_MICROFRONTEND_DOMAIN  = "{{ MFE_HOST }}/{{ MFE_AUTHN_MFE_APP["name"] }}"
-{% endif %}
-
-LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
-CSRF_TRUSTED_ORIGINS.append("https://{{ MFE_HOST }}")
-
-# add missing CORS_ORIGIN_WHITELIST hosts
-CORS_ORIGIN_WHITELIST.append("https://{{ LMS_HOST }}")
-CORS_ORIGIN_WHITELIST.append("https://{{ CMS_HOST }}")
-{% if MFE_HOST is defined %}
-CORS_ORIGIN_WHITELIST.append("https://{{ MFE_HOST }}")
-{% endif %}
-{% if DISCOVERY_HOST is defined %}
-CORS_ORIGIN_WHITELIST.append("https://{{ DISCOVERY_HOST }}")
-{% endif %}
-{% if ECOMMERCE_HOST is defined %}
-CORS_ORIGIN_WHITELIST.append("https://{{ ECOMMERCE_HOST }}")
-{% endif %}
-{% if CREDENTIALS_HOST is defined %}
-CORS_ORIGIN_WHITELIST.append("https://{{ CREDENTIALS_HOST }}")
-{% endif %}
-
 # Dynamic config API settings
 # https://openedx.github.io/frontend-platform/module-Config.html
 MFE_CONFIG = {
@@ -88,15 +49,21 @@ MFE_CONFIG["ACCOUNT_SETTINGS_URL"] = ACCOUNT_MICROFRONTEND_URL
 {% if get_mfe("course-authoring") %}
 MFE_CONFIG["ENABLE_NEW_EDITOR_PAGES"] = True
 MFE_CONFIG["ENABLE_PROGRESS_GRAPH_SETTINGS"] = True
+MFE_CONFIG["COURSE_AUTHORING_MICROFRONTEND_URL"] = "https://{{ MFE_HOST }}/course-authoring"
 {% endif %}
 
 {% if get_mfe("discussions") %}
 DISCUSSIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/discussions"
+MFE_CONFIG["DISCUSSIONS_MFE_BASE_URL"] = DISCUSSIONS_MICROFRONTEND_URL
 DISCUSSIONS_MFE_FEEDBACK_URL = None
 {% endif %}
 
 {% if get_mfe("gradebook") %}
 WRITABLE_GRADEBOOK_URL = "https://{{ MFE_HOST }}/gradebook"
+{% endif %}
+
+{% if get_mfe("learner-dashboard") %}
+LEARNER_HOME_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/learner-dashboard/"
 {% endif %}
 
 {% if get_mfe("learning") %}
@@ -117,6 +84,10 @@ MFE_CONFIG["ACCOUNT_PROFILE_URL"] = "https://{{ MFE_HOST }}/profile"
 COMMUNICATIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/communications"
 MFE_CONFIG["SCHEDULE_EMAIL_SECTION"] = True
 {% endif %}
+
+LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
+CORS_ORIGIN_WHITELIST.append("https://{{ MFE_HOST }}")
+CSRF_TRUSTED_ORIGINS.append("https://{{ MFE_HOST }}")
 
 # CORS and CSRF settings for CDN
 CORS_ORIGIN_WHITELIST.append("https://cdn.{{ LMS_HOST }}")
