@@ -29,7 +29,7 @@ AUTHN_MICROFRONTEND_DOMAIN  = "{{ MFE_HOST }}/{{ MFE_AUTHN_MFE_APP["name"] }}"
 {% endif %}
 
 LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
-CSRF_TRUSTED_ORIGINS.append("{{ MFE_HOST }}")
+CSRF_TRUSTED_ORIGINS.append("https://{{ MFE_HOST }}")
 
 # add missing CORS_ORIGIN_WHITELIST hosts
 CORS_ORIGIN_WHITELIST.append("https://{{ LMS_HOST }}")
