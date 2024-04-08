@@ -47,18 +47,15 @@ CORS_ORIGIN_WHITELIST.append("https://{{ ECOMMERCE_HOST }}")
 CORS_ORIGIN_WHITELIST.append("https://{{ CREDENTIALS_HOST }}")
 {% endif %}
 
-
 # Dynamic config API settings
 # https://openedx.github.io/frontend-platform/module-Config.html
 MFE_CONFIG = {
     "BASE_URL": "{{ MFE_HOST }}",
     "CSRF_TOKEN_API_PATH": "/csrf/api/v1/token",
-{%- if MFE_PROFILE_MFE_APP %}
-    "ACCOUNT_PROFILE_URL": "https://{{ MFE_HOST }}/{{ MFE_PROFILE_MFE_APP["name"] }}",
-{%- endif %}
     "CREDENTIALS_BASE_URL": "",
     "DISCOVERY_API_BASE_URL": "{% if DISCOVERY_HOST is defined %}https://{{ DISCOVERY_HOST }}{% endif %}",
     "FAVICON_URL": "https://{{ LMS_HOST }}/favicon.ico",
+    "INFO_EMAIL": "{{ CONTACT_EMAIL }}",
     "LANGUAGE_PREFERENCE_COOKIE_NAME": "openedx-language-preference",
     "LMS_BASE_URL": "https://{{ LMS_HOST }}",
     "LOGIN_URL": "https://{{ LMS_HOST }}/login",
@@ -67,19 +64,63 @@ MFE_CONFIG = {
     "LOGO_TRADEMARK_URL": "https://{{ LMS_HOST }}/theming/asset/images/logo.png",
     "LOGOUT_URL": "https://{{ LMS_HOST }}/logout",
     "MARKETING_SITE_BASE_URL": "https://{{ LMS_HOST }}",
+    "PASSWORD_RESET_SUPPORT_LINK": "mailto:{{ CONTACT_EMAIL }}",
     "REFRESH_ACCESS_TOKEN_ENDPOINT": "https://{{ LMS_HOST }}/login_refresh",
     "SITE_NAME": "{{ PLATFORM_NAME }}",
     "STUDIO_BASE_URL": "https://{{ CMS_HOST }}",
     "USER_INFO_COOKIE_NAME": "user-info",
     "ACCESS_TOKEN_COOKIE_NAME": "edx-jwt-cookie-header-payload",
-{%- if MFE_LEARNING_MFE_APP %}
-    "LEARNING_BASE_URL": "https://{{ MFE_HOST }}/{{ MFE_LEARNING_MFE_APP["name"] }}",
-{%- endif %}
-{%- if MFE_COURSE_AUTHORING_MFE_APP %}
-    "ENABLE_NEW_EDITOR_PAGES": True,
-    "ENABLE_PROGRESS_GRAPH_SETTINGS": True,
-{%- endif %}
-{%- if MFE_AUTHN_MFE_APP %}
-    "DISABLE_ENTERPRISE_LOGIN": True,
-{%- endif %}
 }
+
+# MFE-specific settings
+
+{% if get_mfe("authn") %}
+AUTHN_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/authn"
+AUTHN_MICROFRONTEND_DOMAIN  = "{{ MFE_HOST }}/authn"
+MFE_CONFIG["DISABLE_ENTERPRISE_LOGIN"] = True
+{% endif %}
+
+{% if get_mfe("account") %}
+ACCOUNT_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/account"
+MFE_CONFIG["ACCOUNT_SETTINGS_URL"] = ACCOUNT_MICROFRONTEND_URL
+{% endif %}
+
+{% if get_mfe("course-authoring") %}
+MFE_CONFIG["ENABLE_NEW_EDITOR_PAGES"] = True
+MFE_CONFIG["ENABLE_PROGRESS_GRAPH_SETTINGS"] = True
+{% endif %}
+
+{% if get_mfe("discussions") %}
+DISCUSSIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/discussions"
+DISCUSSIONS_MFE_FEEDBACK_URL = None
+{% endif %}
+
+{% if get_mfe("gradebook") %}
+WRITABLE_GRADEBOOK_URL = "https://{{ MFE_HOST }}/gradebook"
+{% endif %}
+
+{% if get_mfe("learning") %}
+LEARNING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/learning"
+MFE_CONFIG["LEARNING_BASE_URL"] = "https://{{ MFE_HOST }}/learning"
+{% endif %}
+
+{% if get_mfe("ora-grading") %}
+ORA_GRADING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/ora-grading"
+{% endif %}
+
+{% if get_mfe("profile") %}
+PROFILE_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/profile/u/"
+MFE_CONFIG["ACCOUNT_PROFILE_URL"] = "https://{{ MFE_HOST }}/profile"
+{% endif %}
+
+{% if get_mfe("communications") %}
+COMMUNICATIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/communications"
+MFE_CONFIG["SCHEDULE_EMAIL_SECTION"] = True
+{% endif %}
+
+# CORS and CSRF settings for CDN
+CORS_ORIGIN_WHITELIST.append("https://cdn.{{ LMS_HOST }}")
+CSRF_TRUSTED_ORIGINS.append("cdn.{{ LMS_HOST }}")
+
+{{ patch("mfe-lms-common-settings") }}
+{{ patch("mfe-lms-production-settings") }}

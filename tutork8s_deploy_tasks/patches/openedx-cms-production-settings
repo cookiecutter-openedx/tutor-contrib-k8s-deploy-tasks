@@ -1,0 +1,17 @@
+#------------------------------------------------------------------------------
+# written by:   mcdaniel
+#               https://lawrencemcdaniel.com
+#
+# date:         jan-2023
+#
+# copied from: https://github.com/overhangio/tutor-mfe/blob/master/tutormfe/patches/openedx-cms-production-settings
+#------------------------------------------------------------------------------
+
+# MFE-specific settings
+{% if get_mfe("course-authoring") %}
+COURSE_AUTHORING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/course-authoring"
+{% endif %}
+
+LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
+CORS_ORIGIN_WHITELIST.append("https://{{ MFE_HOST }}")
+CSRF_TRUSTED_ORIGINS.append("https://{{ MFE_HOST }}")

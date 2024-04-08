@@ -7,8 +7,24 @@
 # usage:        eduNEXT's scorm proxy solution for resolving storage challenges
 #               when running behind a proxy server
 #------------------------------------------------------------------------------
-# SCORM SETTINGS
 
+# copied from: https://github.com/overhangio/tutor-mfe/blob/master/tutormfe/patches/openedx-common-settings
+#
+# MFE: enable API and set a low cache timeout for the settings. otherwise, weird
+# configuration bugs occur. Also, the view is not costly at all, and it's also cached on
+# the frontend. (5 minutes, hardcoded)
+ENABLE_MFE_CONFIG_API = True
+MFE_CONFIG_API_CACHE_TIMEOUT = 1
+
+# MFE-specific settings
+{% if get_mfe("authn") %}
+FEATURES['ENABLE_AUTHN_MICROFRONTEND'] = True
+{% endif %}
+{% if get_mfe("communications") %}
+FEATURES['ENABLE_NEW_BULK_EMAIL_EXPERIENCE'] = True
+{% endif %}
+
+# SCORM SETTINGS
 def scorm_xblock_storage(xblock):
   from django.conf import settings
   from storages.backends.s3boto3 import S3Boto3Storage

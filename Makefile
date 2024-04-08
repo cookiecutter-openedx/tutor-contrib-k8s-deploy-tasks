@@ -3,9 +3,11 @@
 # -------------------------------------------------------------------------
 .PHONY: build requirements deps-update deps-init
 
-report:
-	cloc $(git ls-files)
+analyze:
+	cloc . --exclude-ext=svg,json,zip --vcs=git
 
+init:
+	npm install
 
 build:
 	python3 -m pip install --upgrade setuptools wheel twine
@@ -21,6 +23,8 @@ build:
 	python3 -m pip install --upgrade twine
 	twine check dist/*
 
+release-github:
+	git commit -m "fix: force a new release" --allow-empty && git push
 
 # -------------------------------------------------------------------------
 # upload to PyPi Test
