@@ -1,5 +1,6 @@
 .*.swp
 !.gitignore
+package-lock.json
 node_modules
 TODO
 __pycache__
