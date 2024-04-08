@@ -1,3 +1,10 @@
+## [17.0.4](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/compare/v17.0.3...v17.0.4) (2024-04-08)
+
+
+### Bug Fixes
+
+* (4_0.E001) As of Django 4.0, the values in the CSRF_TRUSTED_ORIGINS setting must start with ([cca2947](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/commit/cca294747ee5ba2f1344ddb0c65e73ae7ce6f429))
+
 ## [17.0.1](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/compare/v17.0.0...v17.0.1) (2024-01-03)
 
 
