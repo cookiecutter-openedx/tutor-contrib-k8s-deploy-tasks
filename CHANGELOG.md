@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [18.0.0] (2024-09-26)
+
+- chore: bump to Redwood v18
+
 ## [15.0.3] (2023-08-14)
 
 - chore: add cdn host to CORS_ORIGIN_WHITELIST and CSRF_TRUSTED_ORIGINS
