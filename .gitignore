@@ -1,5 +1,8 @@
 .*.swp
 !.gitignore
+package-lock.json
+node_modules
+venv
 TODO
 __pycache__
 *.egg-info/

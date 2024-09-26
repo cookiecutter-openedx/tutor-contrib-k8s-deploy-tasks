@@ -1,6 +1,18 @@
 # -------------------------------------------------------------------------
 # build a package for PyPi
 # -------------------------------------------------------------------------
+SHELL := /bin/bash
+
+ifeq ($(OS),Windows_NT)
+    PYTHON := python.exe
+    ACTIVATE_VENV := venv\Scripts\activate
+else
+    PYTHON := python3.11
+    ACTIVATE_VENV := source venv/bin/activate
+endif
+PIP := $(PYTHON) -m pip
+
+
 .PHONY: build requirements deps-update deps-init
 
 analyze:
@@ -8,19 +20,24 @@ analyze:
 
 init:
 	npm install
+	$(PYTHON) -m venv venv && \
+	$(ACTIVATE_VENV) && \
+	$(PIP) install --upgrade pip && \
+	$(PIP) install -r requirements.txt
+
 
 build:
-	python3 -m pip install --upgrade setuptools wheel twine
-	python3 -m pip install --upgrade build
+	python3.11 -m pip install --upgrade setuptools wheel twine
+	python3.11 -m pip install --upgrade build
 
 	if [ -d "./build" ]; then sudo rm -r build; fi
 	if [ -d "./dist" ]; then sudo rm -r dist; fi
 	if [ -d "./tutork8s_deploy_tasks.egg-info" ]; then sudo rm -r tutork8s_deploy_tasks.egg-info; fi
 
-	python3 -m build --sdist ./
-	python3 -m build --wheel ./
+	python3.11 -m build --sdist ./
+	python3.11 -m build --wheel ./
 
-	python3 -m pip install --upgrade twine
+	python3.11 -m pip install --upgrade twine
 	twine check dist/*
 
 release-github:
