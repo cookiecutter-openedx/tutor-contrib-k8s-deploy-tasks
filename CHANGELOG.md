@@ -1,3 +1,11 @@
+## [18.0.1](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/compare/v18.0.0...v18.0.1) (2024-11-18)
+
+
+### Bug Fixes
+
+* don't override the entire mfe_config dict. instead, only set individual keys. ([46072cc](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/commit/46072cceff867e592694d53d7c7cf0b1fd2dbce5))
+* update individual MFE_CONFIG keys instead of rewriting the entire dict. ([9e7d1ff](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/commit/9e7d1ff856d83a98ea33d1f7e8db727edd3059e1))
+
 ## [17.0.7](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/compare/v17.0.6...v17.0.7) (2024-11-18)
 
 
