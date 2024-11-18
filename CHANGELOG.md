@@ -13,6 +13,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [18.0.1] (2024-4-8)
+
+fix: update individual MFE_CONFIG keys instead of rewriting the entire dict.
+
+### Bug Fixes
 ## [17.0.7] (2024-11-18)
 
 - fix: don't override the entire mfe_config dict. instead, only set individual keys.
@@ -29,6 +34,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Bug Fixes
 
 * refactor MFE settings for Palm ([0923d14](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/commit/0923d148493c371446dcce09ef7945e9e12365ca))
+
+## [18.0.0] (2024-09-26)
+
+- chore: bump to Redwood v18
 
 ## [15.0.3] (2023-08-14)
 
