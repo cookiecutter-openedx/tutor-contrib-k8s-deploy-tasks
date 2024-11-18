@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [17.0.7] (2024-11-18)
+
+- fix: don't override the entire mfe_config dict. instead, only set individual keys.
+
 ## [17.0.6] (2024-4-8)
 
 ### Bug Fixes
