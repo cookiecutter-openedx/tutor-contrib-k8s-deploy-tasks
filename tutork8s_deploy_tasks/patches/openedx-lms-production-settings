@@ -10,28 +10,26 @@
 #------------------------------------------------------------------------------
 # Dynamic config API settings
 # https://openedx.github.io/frontend-platform/module-Config.html
-MFE_CONFIG = {
-    "BASE_URL": "{{ MFE_HOST }}",
-    "CSRF_TOKEN_API_PATH": "/csrf/api/v1/token",
-    "CREDENTIALS_BASE_URL": "",
-    "DISCOVERY_API_BASE_URL": "{% if DISCOVERY_HOST is defined %}https://{{ DISCOVERY_HOST }}{% endif %}",
-    "FAVICON_URL": "https://{{ LMS_HOST }}/favicon.ico",
-    "INFO_EMAIL": "{{ CONTACT_EMAIL }}",
-    "LANGUAGE_PREFERENCE_COOKIE_NAME": "openedx-language-preference",
-    "LMS_BASE_URL": "https://{{ LMS_HOST }}",
-    "LOGIN_URL": "https://{{ LMS_HOST }}/login",
-    "LOGO_URL": "https://{{ LMS_HOST }}/theming/asset/images/logo.png",
-    "LOGO_WHITE_URL": "https://{{ LMS_HOST }}/theming/asset/images/logo.png",
-    "LOGO_TRADEMARK_URL": "https://{{ LMS_HOST }}/theming/asset/images/logo.png",
-    "LOGOUT_URL": "https://{{ LMS_HOST }}/logout",
-    "MARKETING_SITE_BASE_URL": "https://{{ LMS_HOST }}",
-    "PASSWORD_RESET_SUPPORT_LINK": "mailto:{{ CONTACT_EMAIL }}",
-    "REFRESH_ACCESS_TOKEN_ENDPOINT": "https://{{ LMS_HOST }}/login_refresh",
-    "SITE_NAME": "{{ PLATFORM_NAME }}",
-    "STUDIO_BASE_URL": "https://{{ CMS_HOST }}",
-    "USER_INFO_COOKIE_NAME": "user-info",
-    "ACCESS_TOKEN_COOKIE_NAME": "edx-jwt-cookie-header-payload",
-}
+MFE_CONFIG["BASE_URL"] = "{{ MFE_HOST }}"
+MFE_CONFIG["CSRF_TOKEN_API_PATH"] = "/csrf/api/v1/token"
+MFE_CONFIG["CREDENTIALS_BASE_URL"] = ""
+MFE_CONFIG["DISCOVERY_API_BASE_URL"] = "{% if DISCOVERY_HOST is defined %}https://{{ DISCOVERY_HOST }}{% endif %}"
+MFE_CONFIG["FAVICON_URL"] = "https://{{ LMS_HOST }}/favicon.ico"
+MFE_CONFIG["INFO_EMAIL"] = "{{ CONTACT_EMAIL }}"
+MFE_CONFIG["LANGUAGE_PREFERENCE_COOKIE_NAME"] = "openedx-language-preference"
+MFE_CONFIG["LMS_BASE_URL"] = "https://{{ LMS_HOST }}"
+MFE_CONFIG["LOGIN_URL"] = "https://{{ LMS_HOST }}/login"
+MFE_CONFIG["LOGO_URL"] = "https://{{ LMS_HOST }}/theming/asset/images/logo.png"
+MFE_CONFIG["LOGO_WHITE_URL"] = "https://{{ LMS_HOST }}/theming/asset/images/logo.png"
+MFE_CONFIG["LOGO_TRADEMARK_URL"] = "https://{{ LMS_HOST }}/theming/asset/images/logo.png"
+MFE_CONFIG["LOGOUT_URL"] = "https://{{ LMS_HOST }}/logout"
+MFE_CONFIG["MARKETING_SITE_BASE_URL"] = "https://{{ LMS_HOST }}"
+MFE_CONFIG["PASSWORD_RESET_SUPPORT_LINK"] = "mailto:{{ CONTACT_EMAIL }}"
+MFE_CONFIG["REFRESH_ACCESS_TOKEN_ENDPOINT"] = "https://{{ LMS_HOST }}/login_refresh"
+MFE_CONFIG["SITE_NAME"] = "{{ PLATFORM_NAME }}"
+MFE_CONFIG["STUDIO_BASE_URL"] = "https://{{ CMS_HOST }}"
+MFE_CONFIG["USER_INFO_COOKIE_NAME"] = "user-info"
+MFE_CONFIG["ACCESS_TOKEN_COOKIE_NAME"] = "edx-jwt-cookie-header-payload"
 
 # MFE-specific settings
 

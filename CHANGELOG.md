@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [18.0.1] (2024-4-8)
+
+fix: update individual MFE_CONFIG keys instead of rewriting the entire dict.
+
+### Bug Fixes
+
 ## [17.0.6] (2024-4-8)
 
 ### Bug Fixes
