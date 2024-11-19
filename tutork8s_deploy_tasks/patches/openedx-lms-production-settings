@@ -2,34 +2,41 @@
 # written by:   mcdaniel
 #               https://lawrencemcdaniel.com
 #
-# date:         jan-2023
+# date:         jan-2023 - ensure https protocol
 #               apr-2024
+#               nov-2024 - added ensure_https, and preserve the original values if they exist
 #
 # usage:        hard-code protocols to https
 # copied from:  https://github.com/overhangio/tutor-mfe/blob/master/tutormfe/patches/openedx-lms-production-settings
 #------------------------------------------------------------------------------
 # Dynamic config API settings
 # https://openedx.github.io/frontend-platform/module-Config.html
-MFE_CONFIG["BASE_URL"] = "{{ MFE_HOST }}"
-MFE_CONFIG["CSRF_TOKEN_API_PATH"] = "/csrf/api/v1/token"
-MFE_CONFIG["CREDENTIALS_BASE_URL"] = ""
-MFE_CONFIG["DISCOVERY_API_BASE_URL"] = "{% if DISCOVERY_HOST is defined %}https://{{ DISCOVERY_HOST }}{% endif %}"
-MFE_CONFIG["FAVICON_URL"] = "https://{{ LMS_HOST }}/favicon.ico"
-MFE_CONFIG["INFO_EMAIL"] = "{{ CONTACT_EMAIL }}"
-MFE_CONFIG["LANGUAGE_PREFERENCE_COOKIE_NAME"] = "openedx-language-preference"
-MFE_CONFIG["LMS_BASE_URL"] = "https://{{ LMS_HOST }}"
-MFE_CONFIG["LOGIN_URL"] = "https://{{ LMS_HOST }}/login"
-MFE_CONFIG["LOGO_URL"] = "https://{{ LMS_HOST }}/theming/asset/images/logo.png"
-MFE_CONFIG["LOGO_WHITE_URL"] = "https://{{ LMS_HOST }}/theming/asset/images/logo.png"
-MFE_CONFIG["LOGO_TRADEMARK_URL"] = "https://{{ LMS_HOST }}/theming/asset/images/logo.png"
-MFE_CONFIG["LOGOUT_URL"] = "https://{{ LMS_HOST }}/logout"
-MFE_CONFIG["MARKETING_SITE_BASE_URL"] = "https://{{ LMS_HOST }}"
-MFE_CONFIG["PASSWORD_RESET_SUPPORT_LINK"] = "mailto:{{ CONTACT_EMAIL }}"
-MFE_CONFIG["REFRESH_ACCESS_TOKEN_ENDPOINT"] = "https://{{ LMS_HOST }}/login_refresh"
-MFE_CONFIG["SITE_NAME"] = "{{ PLATFORM_NAME }}"
-MFE_CONFIG["STUDIO_BASE_URL"] = "https://{{ CMS_HOST }}"
-MFE_CONFIG["USER_INFO_COOKIE_NAME"] = "user-info"
-MFE_CONFIG["ACCESS_TOKEN_COOKIE_NAME"] = "edx-jwt-cookie-header-payload"
+def ensure_https(url):
+    if url.startswith("http://") and "{{ LMS_HOST }}" in url:
+        return url.replace("http://", "https://")
+    return url
+
+MFE_CONFIG = MFE_CONFIG or {}
+MFE_CONFIG["BASE_URL"] = MFE_CONFIG.get("BASE_URL", "{{ MFE_HOST }}")
+MFE_CONFIG["CSRF_TOKEN_API_PATH"] = MFE_CONFIG.get("CSRF_TOKEN_API_PATH", "/csrf/api/v1/token")
+MFE_CONFIG["CREDENTIALS_BASE_URL"] = MFE_CONFIG.get("CREDENTIALS_BASE_URL", "")
+MFE_CONFIG["DISCOVERY_API_BASE_URL"] = MFE_CONFIG.get("DISCOVERY_API_BASE_URL", "{% if DISCOVERY_HOST is defined %}https://{{ DISCOVERY_HOST }}{% endif %}")
+MFE_CONFIG["FAVICON_URL"] = ensure_https(MFE_CONFIG.get("FAVICON_URL", "https://{{ LMS_HOST }}/favicon.ico"))
+MFE_CONFIG["INFO_EMAIL"] = MFE_CONFIG.get("INFO_EMAIL", "{{ CONTACT_EMAIL }}")
+MFE_CONFIG["LANGUAGE_PREFERENCE_COOKIE_NAME"] = MFE_CONFIG.get("LANGUAGE_PREFERENCE_COOKIE_NAME", "openedx-language-preference")
+MFE_CONFIG["LMS_BASE_URL"] = ensure_https(MFE_CONFIG.get("LMS_BASE_URL", "https://{{ LMS_HOST }}"))
+MFE_CONFIG["LOGIN_URL"] = ensure_https(MFE_CONFIG.get("LOGIN_URL", "https://{{ LMS_HOST }}/login"))
+MFE_CONFIG["LOGO_URL"] = ensure_https(MFE_CONFIG.get("LOGO_URL", "https://{{ LMS_HOST }}/theming/asset/images/logo.png"))
+MFE_CONFIG["LOGO_WHITE_URL"] = ensure_https(MFE_CONFIG.get("LOGO_WHITE_URL", "https://{{ LMS_HOST }}/theming/asset/images/logo.png"))
+MFE_CONFIG["LOGO_TRADEMARK_URL"] = ensure_https(MFE_CONFIG.get("LOGO_TRADEMARK_URL", "https://{{ LMS_HOST }}/theming/asset/images/logo.png"))
+MFE_CONFIG["LOGOUT_URL"] = ensure_https(MFE_CONFIG.get("LOGOUT_URL", "https://{{ LMS_HOST }}/logout"))
+MFE_CONFIG["MARKETING_SITE_BASE_URL"] = ensure_https(MFE_CONFIG.get("MARKETING_SITE_BASE_URL", "https://{{ LMS_HOST }}"))
+MFE_CONFIG["PASSWORD_RESET_SUPPORT_LINK"] = MFE_CONFIG.get("PASSWORD_RESET_SUPPORT_LINK", "mailto:{{ CONTACT_EMAIL }}")
+MFE_CONFIG["REFRESH_ACCESS_TOKEN_ENDPOINT"] = ensure_https(MFE_CONFIG.get("REFRESH_ACCESS_TOKEN_ENDPOINT", "https://{{ LMS_HOST }}/login_refresh"))
+MFE_CONFIG["SITE_NAME"] = MFE_CONFIG.get("SITE_NAME", "{{ PLATFORM_NAME }}")
+MFE_CONFIG["STUDIO_BASE_URL"] = ensure_https(MFE_CONFIG.get("STUDIO_BASE_URL", "https://{{ CMS_HOST }}"))
+MFE_CONFIG["USER_INFO_COOKIE_NAME"] = MFE_CONFIG.get("USER_INFO_COOKIE_NAME", "user-info")
+MFE_CONFIG["ACCESS_TOKEN_COOKIE_NAME"] = MFE_CONFIG.get("ACCESS_TOKEN_COOKIE_NAME", "edx-jwt-cookie-header-payload")
 
 # MFE-specific settings
 
