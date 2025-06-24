@@ -8,7 +8,7 @@
 #------------------------------------------------------------------------------
 
 # MFE-specific settings
-{% if get_mfe("course-authoring") %}
+{% if 'get_mfe' in vars() and get_mfe("course-authoring") %}
 COURSE_AUTHORING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/course-authoring"
 {% endif %}
 
