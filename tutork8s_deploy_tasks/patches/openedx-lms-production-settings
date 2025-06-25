@@ -10,6 +10,7 @@
 #------------------------------------------------------------------------------
 # Dynamic config API settings
 # https://openedx.github.io/frontend-platform/module-Config.html
+{% if get_mfe is defined %}
 MFE_CONFIG["BASE_URL"] = "{{ MFE_HOST }}"
 MFE_CONFIG["CSRF_TOKEN_API_PATH"] = "/csrf/api/v1/token"
 MFE_CONFIG["CREDENTIALS_BASE_URL"] = ""
@@ -31,7 +32,7 @@ MFE_CONFIG["STUDIO_BASE_URL"] = "https://{{ CMS_HOST }}"
 MFE_CONFIG["USER_INFO_COOKIE_NAME"] = "user-info"
 MFE_CONFIG["ACCESS_TOKEN_COOKIE_NAME"] = "edx-jwt-cookie-header-payload"
 
-# MFE-specific settings
+# MFE-specific settingss
 
 {% if get_mfe("authn") %}
 AUTHN_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/authn"
@@ -86,6 +87,7 @@ MFE_CONFIG["SCHEDULE_EMAIL_SECTION"] = True
 LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
 CORS_ORIGIN_WHITELIST.append("https://{{ MFE_HOST }}")
 CSRF_TRUSTED_ORIGINS.append("https://{{ MFE_HOST }}")
+{% endif %}
 
 # CORS and CSRF settings for CDN
 CORS_ORIGIN_WHITELIST.append("https://cdn.{{ LMS_HOST }}")
