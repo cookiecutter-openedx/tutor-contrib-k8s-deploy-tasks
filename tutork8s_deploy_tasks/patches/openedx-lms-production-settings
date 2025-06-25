@@ -10,7 +10,8 @@
 #------------------------------------------------------------------------------
 # Dynamic config API settings
 # https://openedx.github.io/frontend-platform/module-Config.html
-MFE_CONFIG["BASE_URL"] = "{{ MFE_HOST }}"
+{% if get_mfe is defined %}
+MFE_CONFIG["BASE_URL"] = "{{ MFE_HOST }}"l
 MFE_CONFIG["CSRF_TOKEN_API_PATH"] = "/csrf/api/v1/token"
 MFE_CONFIG["CREDENTIALS_BASE_URL"] = ""
 MFE_CONFIG["DISCOVERY_API_BASE_URL"] = "{% if DISCOVERY_HOST is defined %}https://{{ DISCOVERY_HOST }}{% endif %}"
@@ -31,61 +32,61 @@ MFE_CONFIG["STUDIO_BASE_URL"] = "https://{{ CMS_HOST }}"
 MFE_CONFIG["USER_INFO_COOKIE_NAME"] = "user-info"
 MFE_CONFIG["ACCESS_TOKEN_COOKIE_NAME"] = "edx-jwt-cookie-header-payload"
 
-# MFE-specific settings
-{% if get_mfe is defined %}
-    {% if get_mfe("authn") %}
-    AUTHN_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/authn"
-    AUTHN_MICROFRONTEND_DOMAIN  = "{{ MFE_HOST }}/authn"
-    MFE_CONFIG["DISABLE_ENTERPRISE_LOGIN"] = True
-    {% endif %}
+# MFE-specific settingss
 
-    {% if get_mfe("account") %}
-    ACCOUNT_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/account"
-    MFE_CONFIG["ACCOUNT_SETTINGS_URL"] = ACCOUNT_MICROFRONTEND_URL
-    {% endif %}
+{% if get_mfe("authn") %}
+AUTHN_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/authn"
+AUTHN_MICROFRONTEND_DOMAIN  = "{{ MFE_HOST }}/authn"
+MFE_CONFIG["DISABLE_ENTERPRISE_LOGIN"] = True
+{% endif %}
 
-    {% if get_mfe("course-authoring") %}
-    MFE_CONFIG["ENABLE_NEW_EDITOR_PAGES"] = True
-    MFE_CONFIG["ENABLE_PROGRESS_GRAPH_SETTINGS"] = True
-    MFE_CONFIG["COURSE_AUTHORING_MICROFRONTEND_URL"] = "https://{{ MFE_HOST }}/course-authoring"
-    {% endif %}
+{% if get_mfe("account") %}
+ACCOUNT_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/account"
+MFE_CONFIG["ACCOUNT_SETTINGS_URL"] = ACCOUNT_MICROFRONTEND_URL
+{% endif %}
 
-    {% if get_mfe("discussions") %}
-    DISCUSSIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/discussions"
-    MFE_CONFIG["DISCUSSIONS_MFE_BASE_URL"] = DISCUSSIONS_MICROFRONTEND_URL
-    DISCUSSIONS_MFE_FEEDBACK_URL = None
-    {% endif %}
+{% if get_mfe("course-authoring") %}
+MFE_CONFIG["ENABLE_NEW_EDITOR_PAGES"] = True
+MFE_CONFIG["ENABLE_PROGRESS_GRAPH_SETTINGS"] = True
+MFE_CONFIG["COURSE_AUTHORING_MICROFRONTEND_URL"] = "https://{{ MFE_HOST }}/course-authoring"
+{% endif %}
 
-    {% if get_mfe("gradebook") %}
-    WRITABLE_GRADEBOOK_URL = "https://{{ MFE_HOST }}/gradebook"
-    {% endif %}
+{% if get_mfe("discussions") %}
+DISCUSSIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/discussions"
+MFE_CONFIG["DISCUSSIONS_MFE_BASE_URL"] = DISCUSSIONS_MICROFRONTEND_URL
+DISCUSSIONS_MFE_FEEDBACK_URL = None
+{% endif %}
 
-    {% if get_mfe("learner-dashboard") %}
-    LEARNER_HOME_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/learner-dashboard/"
-    {% endif %}
+{% if get_mfe("gradebook") %}
+WRITABLE_GRADEBOOK_URL = "https://{{ MFE_HOST }}/gradebook"
+{% endif %}
 
-    {% if get_mfe("learning") %}
-    LEARNING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/learning"
-    MFE_CONFIG["LEARNING_BASE_URL"] = "https://{{ MFE_HOST }}/learning"
-    {% endif %}
+{% if get_mfe("learner-dashboard") %}
+LEARNER_HOME_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/learner-dashboard/"
+{% endif %}
 
-    {% if get_mfe("ora-grading") %}
-    ORA_GRADING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/ora-grading"
-    {% endif %}
+{% if get_mfe("learning") %}
+LEARNING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/learning"
+MFE_CONFIG["LEARNING_BASE_URL"] = "https://{{ MFE_HOST }}/learning"
+{% endif %}
 
-    {% if get_mfe("profile") %}
-    PROFILE_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/profile/u/"
-    MFE_CONFIG["ACCOUNT_PROFILE_URL"] = "https://{{ MFE_HOST }}/profile"
-    {% endif %}
+{% if get_mfe("ora-grading") %}
+ORA_GRADING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/ora-grading"
+{% endif %}
 
-    {% if get_mfe("communications") %}
-    COMMUNICATIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/communications"
-    MFE_CONFIG["SCHEDULE_EMAIL_SECTION"] = True
-    {% endif %}
+{% if get_mfe("profile") %}
+PROFILE_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/profile/u/"
+MFE_CONFIG["ACCOUNT_PROFILE_URL"] = "https://{{ MFE_HOST }}/profile"
+{% endif %}
 
-    LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
-    CORS_ORIGIN_WHITELIST.append("https://{{ MFE_HOST }}")
-    CSRF_TRUSTED_ORIGINS.append("https://{{ MFE_HOST }}")
+{% if get_mfe("communications") %}
+COMMUNICATIONS_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/communications"
+MFE_CONFIG["SCHEDULE_EMAIL_SECTION"] = True
+{% endif %}
+
+LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
+CORS_ORIGIN_WHITELIST.append("https://{{ MFE_HOST }}")
+CSRF_TRUSTED_ORIGINS.append("https://{{ MFE_HOST }}")
 {% endif %}
 
 # CORS and CSRF settings for CDN
