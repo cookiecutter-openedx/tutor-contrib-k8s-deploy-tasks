@@ -32,7 +32,7 @@ MFE_CONFIG["USER_INFO_COOKIE_NAME"] = "user-info"
 MFE_CONFIG["ACCESS_TOKEN_COOKIE_NAME"] = "edx-jwt-cookie-header-payload"
 
 # MFE-specific settings
-{% if 'get_mfe' in vars() %}
+{% if get_mfe %}
     {% if get_mfe("authn") %}
     AUTHN_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/authn"
     AUTHN_MICROFRONTEND_DOMAIN  = "{{ MFE_HOST }}/authn"

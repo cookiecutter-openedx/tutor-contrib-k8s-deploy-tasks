@@ -17,7 +17,7 @@ ENABLE_MFE_CONFIG_API = True
 MFE_CONFIG_API_CACHE_TIMEOUT = 1
 
 # MFE-specific settings
-{% if 'get_mfe' in vars() %}
+{% if get_mfe %}
   {% if get_mfe("authn") %}
   FEATURES['ENABLE_AUTHN_MICROFRONTEND'] = True
   {% endif %}
