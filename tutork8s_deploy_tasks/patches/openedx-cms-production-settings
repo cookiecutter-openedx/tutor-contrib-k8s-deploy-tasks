@@ -8,8 +8,10 @@
 #------------------------------------------------------------------------------
 
 # MFE-specific settings
-{% if get_mfe and get_mfe("course-authoring") %}
-COURSE_AUTHORING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/course-authoring"
+{% if get_mfe %}
+    {% if get_mfe("course-authoring") %}
+    COURSE_AUTHORING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/course-authoring"
+    {% endif %}
 {% endif %}
 
 LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
