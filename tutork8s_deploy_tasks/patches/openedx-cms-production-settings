@@ -8,10 +8,12 @@
 #------------------------------------------------------------------------------
 
 # MFE-specific settings
-{% if get_mfe is defined and get_mfe("course-authoring") %}
-COURSE_AUTHORING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/course-authoring"
-{% endif %}
+{% if get_mfe is defined %}
+    {% if get_mfe("course-authoring") %}
+        COURSE_AUTHORING_MICROFRONTEND_URL = "https://{{ MFE_HOST }}/course-authoring"
+    {% endif %}
 
-LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
-CORS_ORIGIN_WHITELIST.append("https://{{ MFE_HOST }}")
-CSRF_TRUSTED_ORIGINS.append("https://{{ MFE_HOST }}")
+    LOGIN_REDIRECT_WHITELIST.append("{{ MFE_HOST }}")
+    CORS_ORIGIN_WHITELIST.append("https://{{ MFE_HOST }}")
+    CSRF_TRUSTED_ORIGINS.append("https://{{ MFE_HOST }}")
+{% endif %}
