@@ -1,3 +1,9 @@
+## [18.0.3](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/compare/v18.0.3...v18.0.1) (2025-06-26)
+
+### Bug Fixes
+
+* Avoid error when MFE plugin is disabled
+
 ## [18.0.1](https://github.com/cookiecutter-openedx/tutor-contrib-k8s-deploy-tasks/compare/v18.0.0...v18.0.1) (2024-11-18)
 
 
@@ -19,6 +25,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [18.0.3] (2025-6-26)
+
+fix: support disabling MFE plugin
 
 
 ## [18.0.1] (2024-4-8)
